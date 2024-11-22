@@ -4,6 +4,9 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
+  DrawerDescription,
+  DrawerHeader,
+  DrawerTitle,
   DrawerTrigger,
   Input,
 } from "@/components";
@@ -16,6 +19,10 @@ export function RepresentativeDrawer() {
       </DrawerTrigger>
       <DrawerContent>
         <div className="mx-auto w-full max-w-sm p-4">
+          <DrawerHeader>
+            <DrawerTitle>Register new representative</DrawerTitle>
+            <DrawerDescription>The email should be unique</DrawerDescription>
+          </DrawerHeader>
           <CreateRepresentativeForm />
         </div>
       </DrawerContent>
