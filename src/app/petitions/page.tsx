@@ -1,3 +1,5 @@
+import { Card } from "@/components/ui/card";
+
 const petitions = [
   { id: 1, topic: "Free Ice Cream for Everyone!", isDone: false },
   { id: 2, topic: "Higher Wages for Teachers", isDone: true },
@@ -21,9 +23,11 @@ type Props = { petition: { id: number; topic: string; isDone: boolean } };
 
 export function PetitionItem({ petition }: Props) {
   return (
-    <li className="flex gap-4">
-      <h2>{petition.topic}</h2>
-      <p>{petition.isDone ? "Done" : "Ongoing"}</p>
+    <li>
+      <Card className="px-4 py-2 flex gap-4 justify-between">
+        <h2>{petition.topic}</h2>
+        <p>{petition.isDone ? "Done" : "Ongoing"}</p>
+      </Card>
     </li>
   );
 }
