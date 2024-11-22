@@ -1,9 +1,27 @@
 import { Card } from "@/components/ui/card";
 
 const petitions = [
-  { id: 1, topic: "Free Ice Cream for Everyone!", isDone: false },
-  { id: 2, topic: "Higher Wages for Teachers", isDone: true },
-  { id: 3, topic: "More Nuclear Power Plants", isDone: true },
+  {
+    id: 1,
+    topic: "Free Ice Cream for Everyone!",
+    description:
+      "A proposal to provide free ice cream to all citizens as a gesture to boost public morale and happiness.",
+    isDone: false,
+  },
+  {
+    id: 2,
+    topic: "Higher Wages for Teachers",
+    description:
+      "A petition advocating for increased salaries for teachers to recognize their vital role in educating future generations.",
+    isDone: true,
+  },
+  {
+    id: 3,
+    topic: "More Nuclear Power Plants",
+    description:
+      "A call to build additional nuclear power plants to meet energy demands and reduce reliance on fossil fuels.",
+    isDone: true,
+  },
 ];
 
 export default function Petitions() {
@@ -19,14 +37,19 @@ export default function Petitions() {
   );
 }
 
-type Props = { petition: { id: number; topic: string; isDone: boolean } };
+type Props = {
+  petition: { id: number; topic: string; description: string; isDone: boolean };
+};
 
 export function PetitionItem({ petition }: Props) {
   return (
     <li>
-      <Card className="px-4 py-2 flex gap-4 justify-between">
-        <h2>{petition.topic}</h2>
-        <p>{petition.isDone ? "Done" : "Ongoing"}</p>
+      <Card className="px-4 py-2 flex gap-4 justify-between items-center">
+        <div>
+          <h2 className="font-bold">{petition.topic}</h2>
+          <p className="text-slate-600">{petition.description}</p>
+        </div>
+        <div>{petition.isDone ? "Done" : "Ongoing"}</div>
       </Card>
     </li>
   );
