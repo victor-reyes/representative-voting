@@ -1,5 +1,4 @@
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { Button, Card, Main } from "@/components/";
 
 const representatives: { id: number; firstName: string; lastName: string }[] = [
   { id: 1, firstName: "John", lastName: "Doe" },
@@ -9,7 +8,7 @@ const representatives: { id: number; firstName: string; lastName: string }[] = [
 
 export default function Representatives() {
   return (
-    <main>
+    <Main>
       <div className="flex justify-between">
         <div>Represenatives</div>
         <AddNewRepresentativeButton />
@@ -22,7 +21,7 @@ export default function Representatives() {
           />
         ))}
       </ul>
-    </main>
+    </Main>
   );
 }
 

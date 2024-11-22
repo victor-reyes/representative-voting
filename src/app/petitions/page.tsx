@@ -1,4 +1,4 @@
-import { Card } from "@/components/ui/card";
+import { Card, Main } from "@/components";
 
 const petitions = [
   {
@@ -26,14 +26,14 @@ const petitions = [
 
 export default function Petitions() {
   return (
-    <main>
+    <Main>
       <h1>Petitions!</h1>
       <ul className="space-y-2">
         {petitions.map((petition) => (
           <PetitionItem key={petition.id} petition={petition} />
         ))}
       </ul>
-    </main>
+    </Main>
   );
 }
 
