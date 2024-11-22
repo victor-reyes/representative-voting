@@ -10,12 +10,20 @@ export default function Petitions() {
       <h1>Petitions!</h1>
       <ul className="flex flex-col gap-2">
         {petitions.map((petition) => (
-          <li key={petition.id} className="flex gap-4">
-            <h2>{petition.topic}</h2>
-            <p>{petition.isDone ? "Done" : "Ongoing"} </p>
-          </li>
+          <PetitionItem key={petition.id} petition={petition} />
         ))}
       </ul>
     </main>
+  );
+}
+
+type Props = { petition: { id: number; topic: string; isDone: boolean } };
+
+export function PetitionItem({ petition }: Props) {
+  return (
+    <li className="flex gap-4">
+      <h2>{petition.topic}</h2>
+      <p>{petition.isDone ? "Done" : "Ongoing"}</p>
+    </li>
   );
 }
