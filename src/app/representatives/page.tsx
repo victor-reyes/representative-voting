@@ -9,7 +9,7 @@ const representatives: { id: number; firstName: string; lastName: string }[] = [
 export default function Representatives() {
   return (
     <Main>
-      <div className="flex justify-between">
+      <div className="flex justify-between items-center py-2">
         <div>Represenatives</div>
         <AddNewRepresentativeButton />
       </div>
