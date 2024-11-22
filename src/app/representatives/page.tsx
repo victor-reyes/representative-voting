@@ -1,4 +1,5 @@
-import { Button, Card, Main } from "@/components/";
+import { Card, Main } from "@/components/";
+import { RepresentativeDrawer } from "./representative-drawer";
 
 const representatives: { id: number; firstName: string; lastName: string }[] = [
   { id: 1, firstName: "John", lastName: "Doe" },
@@ -11,7 +12,7 @@ export default function Representatives() {
     <Main>
       <div className="flex justify-between items-center py-2">
         <div>Represenatives</div>
-        <AddNewRepresentativeButton />
+        <RepresentativeDrawer />
       </div>
       <ul className="space-y-2">
         {representatives.map((representative) => (
@@ -39,8 +40,4 @@ export function RepresentativeItem({ representative }: Props) {
       </Card>
     </li>
   );
-}
-
-export function AddNewRepresentativeButton() {
-  return <Button>Add New Representative</Button>;
 }
