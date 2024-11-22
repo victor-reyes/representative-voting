@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 
 const representatives: { id: number; firstName: string; lastName: string }[] = [
@@ -9,7 +10,10 @@ const representatives: { id: number; firstName: string; lastName: string }[] = [
 export default function Representatives() {
   return (
     <main>
-      <div>Represenatives!</div>
+      <div className="flex justify-between">
+        <div>Represenatives</div>
+        <AddNewRepresentativeButton />
+      </div>
       <ul className="space-y-2">
         {representatives.map((representative) => (
           <RepresentativeItem
@@ -36,4 +40,8 @@ export function RepresentativeItem({ representative }: Props) {
       </Card>
     </li>
   );
+}
+
+export function AddNewRepresentativeButton() {
+  return <Button>Add New Representative</Button>;
 }
