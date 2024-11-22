@@ -10,13 +10,26 @@ export default function Representatives() {
       <div>Represenatives!</div>
       <ul>
         {representatives.map((representative) => (
-          <li key={representative.id}>
-            <h2>
-              {representative.firstName} {representative.lastName}
-            </h2>
-          </li>
+          <RepresentativeItem
+            key={representative.id}
+            representative={representative}
+          />
         ))}
       </ul>
     </main>
+  );
+}
+
+type Props = {
+  representative: { id: number; firstName: string; lastName: string };
+};
+
+export function RepresentativeItem({ representative }: Props) {
+  return (
+    <li>
+      <h2>
+        {representative.firstName} {representative.lastName}
+      </h2>
+    </li>
   );
 }
