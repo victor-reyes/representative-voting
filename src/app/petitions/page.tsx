@@ -28,7 +28,7 @@ export default function Petitions() {
   return (
     <main>
       <h1>Petitions!</h1>
-      <ul className="flex flex-col gap-2">
+      <ul className="space-y-2">
         {petitions.map((petition) => (
           <PetitionItem key={petition.id} petition={petition} />
         ))}
