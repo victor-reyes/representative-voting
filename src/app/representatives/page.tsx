@@ -1,13 +1,9 @@
 import { Card, Main } from "@/components/";
 import { RepresentativeDrawer } from "./representative-drawer";
+import { representativeVoterFeature } from "@/features";
 
-const representatives: { id: number; firstName: string; lastName: string }[] = [
-  { id: 1, firstName: "John", lastName: "Doe" },
-  { id: 2, firstName: "Jane", lastName: "Smith" },
-  { id: 3, firstName: "Alice", lastName: "Johnson" },
-];
-
-export default function Representatives() {
+export default async function Representatives() {
+  const representatives = await representativeVoterFeature.service.getAll();
   return (
     <Main>
       <div className="flex justify-between items-center py-2">
