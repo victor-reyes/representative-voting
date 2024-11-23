@@ -1,4 +1,4 @@
-import { pgTable, text } from "drizzle-orm/pg-core";
+import { integer, pgTable, text } from "drizzle-orm/pg-core";
 
 export const usersTable = pgTable("users", {
   email: text().primaryKey(),
@@ -20,4 +20,11 @@ export const userVotingTable = pgTable("user_voting", {
     .primaryKey()
     .references(() => representativesTable.email),
   timestamp: text().notNull(),
+});
+
+export const userPreferencesTable = pgTable("user_preferences", {
+  userEmail: text()
+    .primaryKey()
+    .references(() => usersTable.email),
+  petitionId: integer().notNull(),
 });
