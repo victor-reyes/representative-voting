@@ -17,7 +17,6 @@ export const userVotingTable = pgTable("user_voting", {
     .primaryKey()
     .references(() => usersTable.email),
   representativeEmail: text()
-    .primaryKey()
     .references(() => representativesTable.email),
   timestamp: text().notNull(),
 });
