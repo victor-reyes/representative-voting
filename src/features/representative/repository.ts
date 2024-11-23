@@ -9,6 +9,14 @@ export function createRepository() {
     async getAll() {
       return representatives;
     },
+
+    async create(firstName: string, lastName: string, email: string) {
+      representatives.push({
+        id: representatives.length + 1,
+        firstName,
+        lastName,
+      });
+    },
   };
 }
 
