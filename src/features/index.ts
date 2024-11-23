@@ -1,1 +1,1 @@
-export * from "./representative-voter";
+export * from "./representative";

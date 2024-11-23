@@ -3,6 +3,7 @@ import { RepresentativeDrawer, RepresentativeItem } from "./components";
 
 export async function Representatives() {
   const representatives = await representativeVoterFeature.service.getAll();
+
   return (
     <>
       <div className="flex justify-between items-center py-2">
