@@ -1,5 +1,6 @@
 import { Button, DrawerClose, FormDrawer, Input } from "@/components";
 import Form from "next/form";
+import { createPetitionAction } from "../../actions";
 
 export function PetitionDrawer() {
   return (
@@ -15,7 +16,7 @@ export function PetitionDrawer() {
 
 function CreatePetitionForm() {
   return (
-    <Form action="" className="flex flex-col gap-2">
+    <Form action={createPetitionAction} className="flex flex-col gap-2">
       <Input type="text" name="title" placeholder="Title" required />
       <Input
         type="text"
