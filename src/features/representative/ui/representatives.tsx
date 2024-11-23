@@ -12,7 +12,7 @@ export async function Representatives() {
     >
       {representatives.map((representative) => (
         <RepresentativeItem
-          key={representative.id}
+          key={representative.email}
           representative={representative}
         />
       ))}

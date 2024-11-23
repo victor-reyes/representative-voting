@@ -1,7 +1,7 @@
 import { Card } from "@/components";
 
 type Props = {
-  representative: { id: number; firstName: string; lastName: string };
+  representative: { email: string; firstName: string; lastName: string };
 };
 
 export function RepresentativeItem({ representative }: Props) {
