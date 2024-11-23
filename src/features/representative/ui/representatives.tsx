@@ -1,8 +1,8 @@
-import { instance } from "../instance";
+import { representative } from "../instance";
 import { RepresentativeDrawer, RepresentativeItem } from "./components";
 
 export async function Representatives() {
-  const representatives = await instance.service.getAll();
+  const representatives = await representative.service.getAll();
 
   return (
     <>

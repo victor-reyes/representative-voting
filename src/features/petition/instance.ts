@@ -1,3 +1,3 @@
 import { createFeature } from "./feature";
 
-export const instance = createFeature();
+export const petition = createFeature();
