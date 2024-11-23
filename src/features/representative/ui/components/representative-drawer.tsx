@@ -1,33 +1,16 @@
 import Form from "next/form";
-import {
-  Button,
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-  Input,
-} from "@/components";
+import { Button, DrawerClose, FormDrawer, Input } from "@/components";
 import { createRepresentativeAction } from "../../actions";
 
 export function RepresentativeDrawer() {
   return (
-    <Drawer>
-      <DrawerTrigger asChild>
-        <Button>Add Representative</Button>
-      </DrawerTrigger>
-      <DrawerContent>
-        <div className="mx-auto w-full max-w-sm p-4">
-          <DrawerHeader>
-            <DrawerTitle>Register new representative</DrawerTitle>
-            <DrawerDescription>The email should be unique</DrawerDescription>
-          </DrawerHeader>
-          <CreateRepresentativeForm />
-        </div>
-      </DrawerContent>
-    </Drawer>
+    <FormDrawer
+      buttonTitle="Add Representative"
+      title="Register new representative"
+      description="The email should be unique"
+    >
+      <CreateRepresentativeForm />
+    </FormDrawer>
   );
 }
 
