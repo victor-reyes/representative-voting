@@ -10,8 +10,7 @@ import {
   DrawerTrigger,
   Input,
 } from "@/components";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
+import { createRepresentativeAction } from "../../actions";
 
 export function RepresentativeDrawer() {
   return (
@@ -44,16 +43,4 @@ function CreateRepresentativeForm() {
       </DrawerClose>
     </Form>
   );
-}
-
-async function createRepresentativeAction(formData: FormData) {
-  "use server";
-  const firstName = formData.get("firstName") as string;
-  const lastName = formData.get("lastName") as string;
-  const email = formData.get("email") as string;
-
-  console.log(`Creating representative: ${firstName} ${lastName} (${email})`);
-
-  revalidatePath("/representatives");
-  redirect("/representatives");
 }
