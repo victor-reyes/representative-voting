@@ -59,6 +59,16 @@ export function createRepository() {
         .insert(userPreferencesTable)
         .values({ petitionId, userEmail, choice });
     },
+
+    async voteForRepresentative(
+      representativeEmail: string,
+      userEmail: string,
+      timestamp: number,
+    ) {
+      return await db
+        .insert(userVotingTable)
+        .values({ representativeEmail, userEmail, timestamp });
+    },
   };
 }
 

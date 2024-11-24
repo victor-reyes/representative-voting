@@ -34,8 +34,24 @@ export function createService(
       return await repository.createUsers(users);
     },
 
-    async voteOnPetition(petitionId: number, userEmail: string, choice: string) {
+    async voteOnPetition(
+      petitionId: number,
+      userEmail: string,
+      choice: string,
+    ) {
       return await repository.voteOnPetition(petitionId, userEmail, choice);
-    }
+    },
+
+    async voteForRepresentative(
+      representativeEmail: string,
+      userEmail: string,
+      timestamp: number,
+    ) {
+      return await repository.voteForRepresentative(
+        representativeEmail,
+        userEmail,
+        timestamp,
+      );
+    },
   };
 }
