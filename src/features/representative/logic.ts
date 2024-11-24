@@ -34,3 +34,16 @@ export function getMostRecentVotes(
       array.findIndex((v) => v.userEmail === vote.userEmail) === index,
   );
 }
+
+export function calculateAgreementRate(
+  representativeChoice: string,
+  voterChoices: string[],
+) {
+  if (voterChoices.length === 0) {
+    return 1;
+  }
+  return (
+    voterChoices.filter((choice) => choice === representativeChoice).length /
+    voterChoices.length
+  );
+}
