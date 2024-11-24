@@ -17,6 +17,14 @@ async function seed() {
 
   const insertedPetitions = await petitionService.getAll();
   await seedFakePetitionVotes(users, insertedPetitions);
+
+  await seedFakeRepresentativeVotes(
+    users,
+    representatives,
+    insertedPetitions.map(
+      (petition) => petition.startTimestamp.getTime() / 1000,
+    ),
+  );
 }
 
 async function seedPetitions(
