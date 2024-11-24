@@ -4,7 +4,6 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { RepresentativeStatsItem } from "./representative-stats-item";
-import { Button } from "@/components";
 import { CircleChevronDown } from "lucide-react";
 
 type Props = {
