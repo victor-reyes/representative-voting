@@ -9,8 +9,8 @@ export const representativesTable = pgTable("representatives", {
   email: text()
     .primaryKey()
     .references(() => usersTable.email),
-  firstName: text().notNull(),
-  lastName: text().notNull(),
+  firstName: text("first_name").notNull(),
+  lastName: text("last_name").notNull(),
   timestamp: integer()
     .notNull()
     .default(sql`extract(epoch from now())`),
@@ -19,8 +19,10 @@ export const representativesTable = pgTable("representatives", {
 export const userVotingTable = pgTable(
   "user_voting",
   {
-    representativeEmail: text().references(() => representativesTable.email),
-    userEmail: text().references(() => usersTable.email),
+    representativeEmail: text("representative_email").references(
+      () => representativesTable.email,
+    ),
+    userEmail: text("user_email").references(() => usersTable.email),
     timestamp: integer()
       .notNull()
       .default(sql`extract(epoch from now())`),
@@ -31,8 +33,8 @@ export const userVotingTable = pgTable(
 );
 
 export const userPreferencesTable = pgTable("user_preferences", {
-  userEmail: text()
+  userEmail: text("user_email")
     .primaryKey()
     .references(() => usersTable.email),
-  petitionId: integer().notNull(),
+  petitionId: integer("petion_id").notNull(),
 });

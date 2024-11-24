@@ -6,8 +6,8 @@ export const petionsTable = pgTable("petitions", {
   topic: text().notNull(),
   description: text().notNull(),
   alternatives: jsonb().$type<string[]>().notNull(),
-  startTimestamp: integer()
+  startTimestamp: integer("start_timestamp")
     .notNull()
     .default(sql`extract(epoch from now())`),
-  endTimestamp: integer(),
+  endTimestamp: integer("end_timestamp"),
 });
