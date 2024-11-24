@@ -1,3 +1,4 @@
+import { sql } from "drizzle-orm";
 import { integer, pgTable, primaryKey, text } from "drizzle-orm/pg-core";
 
 export const usersTable = pgTable("users", {
@@ -17,7 +18,9 @@ export const userVotingTable = pgTable(
   {
     representativeEmail: text().references(() => representativesTable.email),
     userEmail: text().references(() => usersTable.email),
-    timestamp: text().notNull(),
+    timestamp: integer()
+      .notNull()
+      .default(sql`extract(epoch from now())`),
   },
   (t) => [
     primaryKey({ columns: [t.representativeEmail, t.userEmail, t.timestamp] }),
