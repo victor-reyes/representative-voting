@@ -45,5 +45,5 @@ export const userPreferencesTable = pgTable("user_preferences", {
     .primaryKey()
     .references(() => usersTable.email),
   petitionId: integer("petion_id").notNull(),
-  preference: varchar().notNull(),
+  choice: varchar().notNull(),
 });

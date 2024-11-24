@@ -8,7 +8,7 @@ export function createService(repository: Repository) {
           id,
           topic,
           description,
-          alternatives,
+          choices,
           startTimestamp,
           endTimestamp,
         }) => {
@@ -16,7 +16,7 @@ export function createService(repository: Repository) {
             id,
             topic,
             description,
-            alternatives,
+            choices,
             startTimestamp: new Date(startTimestamp * 1000),
             isDone: endTimestamp ? true : false,
           };
@@ -24,8 +24,8 @@ export function createService(repository: Repository) {
       );
     },
 
-    async create(topic: string, description: string, alternatives: string[]) {
-      return await repository.create(topic, description, alternatives);
+    async create(topic: string, description: string, choices: string[]) {
+      return await repository.create(topic, description, choices);
     },
   };
 }

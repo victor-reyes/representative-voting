@@ -7,9 +7,9 @@ import { redirect } from "next/navigation";
 export async function createPetitionAction(formData: FormData) {
   const title = formData.get("title") as string;
   const description = formData.get("description") as string;
-  const alternatives = (formData.get("alternatives") as string).split(",");
+  const choices = (formData.get("choices") as string).split(",");
 
-  await petition.service.create(title, description, alternatives);
+  await petition.service.create(title, description, choices);
 
   revalidatePath("/petitions");
   redirect("/petitions");

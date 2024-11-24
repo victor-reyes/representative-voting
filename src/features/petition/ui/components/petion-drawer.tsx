@@ -7,7 +7,7 @@ export function PetitionDrawer() {
     <FormDrawer
       buttonTitle="Add Petition"
       title="Register new petition"
-      description="You can add a new petition that will be sent to the representatives to debate and vote on. There should be at least two alternatives."
+      description="You can add a new petition that will be sent to the representatives to debate and vote on. There should be at least two choices."
     >
       <CreatePetitionForm />
     </FormDrawer>
@@ -26,8 +26,8 @@ function CreatePetitionForm() {
       />
       <Input
         type="text"
-        name="alternatives"
-        placeholder="Add your alternatives separating by comma"
+        name="choices"
+        placeholder="Add petitions choices separating by comma"
         required
       />
       <Button type="submit">Save</Button>

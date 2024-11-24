@@ -5,7 +5,7 @@ export const petionsTable = pgTable("petitions", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   topic: text().notNull(),
   description: text().notNull(),
-  alternatives: jsonb().$type<string[]>().notNull(),
+  choices: jsonb().$type<string[]>().notNull(),
   startTimestamp: integer("start_timestamp")
     .notNull()
     .default(sql`extract(epoch from now())`),

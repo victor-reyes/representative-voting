@@ -5,7 +5,7 @@ type Props = {
     id: number;
     topic: string;
     description: string;
-    alternatives: string[];
+    choices: string[];
     startTimestamp: Date;
     isDone: boolean;
   };
@@ -18,7 +18,7 @@ export function PetitionItem({ petition }: Props) {
         <div>
           <h2 className="font-bold">{petition.topic}</h2>
           <p className="text-slate-600">{petition.description}</p>
-          <Alternatives alternatives={petition.alternatives} />
+          <Choices choices={petition.choices} />
         </div>
         <div>{petition.isDone ? "Done" : "Ongoing"}</div>
       </Card>
@@ -26,14 +26,14 @@ export function PetitionItem({ petition }: Props) {
   );
 }
 
-function Alternatives({ alternatives }: { alternatives: string[] }) {
+function Choices({ choices }: { choices: string[] }) {
   return (
     <div className="p-2">
       <h3 className="font-serif">Alternatives:</h3>
       <ul className="list-disc  ps-6">
-        {alternatives.map((alternative) => (
-          <li key={alternative} className="text-slate-600">
-            {alternative}
+        {choices.map((choice) => (
+          <li key={choice} className="text-slate-600">
+            {choice}
           </li>
         ))}
       </ul>
