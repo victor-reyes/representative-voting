@@ -1,6 +1,7 @@
 import { petition } from "../petition";
 import { calculateRepresentativesVotingPower } from "./logic";
 import { Repository } from "./repository";
+import { usersTable } from "./schemas";
 
 export function createService(
   repository: Repository,
@@ -23,6 +24,14 @@ export function createService(
         userVotes,
         representatives,
       );
+    },
+
+    async createUser(email: string) {
+      return await repository.createUser(email);
+    },
+
+    async createUsers(users: (typeof usersTable.$inferInsert)[]) {
+      return await repository.createUsers(users);
     },
   };
 }

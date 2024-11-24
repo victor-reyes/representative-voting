@@ -45,6 +45,10 @@ export function createRepository() {
     async createUser(email: string) {
       return await db.insert(usersTable).values({ email });
     },
+
+    async createUsers(users: (typeof usersTable.$inferInsert)[]) {
+      return await db.insert(usersTable).values(users);
+    },
   };
 }
 
