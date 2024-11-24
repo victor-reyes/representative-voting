@@ -89,7 +89,7 @@ async function fakeUniqueRepresentatives(
 async function fakePetitions(numberOfPetitions = 100) {
   return faker.date
     .betweens({
-      from: new Date(),
+      from: new Date().getTime() - 4 * YEAR_IN_MILLIS,
       to: new Date(),
       count: numberOfPetitions,
     })
