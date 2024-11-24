@@ -11,6 +11,9 @@ export const representativesTable = pgTable("representatives", {
     .references(() => usersTable.email),
   firstName: text().notNull(),
   lastName: text().notNull(),
+  timestamp: integer()
+    .notNull()
+    .default(sql`extract(epoch from now())`),
 });
 
 export const userVotingTable = pgTable(
