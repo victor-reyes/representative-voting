@@ -1,7 +1,7 @@
 import { sql } from "drizzle-orm";
 import { integer, jsonb, pgTable, text } from "drizzle-orm/pg-core";
 
-export const petionsTable = pgTable("petitions", {
+export const petitionsTable = pgTable("petitions", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   topic: text().notNull(),
   description: text().notNull(),
