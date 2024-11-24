@@ -35,4 +35,23 @@ async function getFakeRepresentatives(
   return uniqueRepresentatives;
 }
 
+async function fakePetitions(numberOfPetitions = 100) {
+  return faker.date
+    .betweens({
+      from: new Date(),
+      to: new Date(),
+      count: numberOfPetitions,
+    })
+    .map((date) => {
+      const timestamp = date.getTime();
+      const numberOfChoices = Math.floor(Math.random() * 3) + 2;
+      return {
+        topic: faker.word.words(3),
+        description: faker.word.words(15),
+        choices: faker.helpers.uniqueArray(faker.word.noun, numberOfChoices),
+        timestamp,
+      };
+    });
+}
+
 seed();
