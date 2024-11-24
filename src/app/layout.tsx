@@ -8,6 +8,7 @@ export const metadata: Metadata = {
 };
 
 const NavItem = [
+  { href: "/", label: "Home" },
   { href: "/representatives", label: "Representatives" },
   { href: "/petitions", label: "Petitions" },
 ];
