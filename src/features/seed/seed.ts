@@ -2,10 +2,10 @@ import { petition } from "../petition";
 import { representative } from "../representative";
 import { faker } from "@faker-js/faker";
 
-async function seed() {
-  const petitionService = petition.service;
-  const representativeService = representative.service;
+const petitionService = petition.service;
+const representativeService = representative.service;
 
+async function seed() {
   const users = await fakeUniqueUsers();
   const representatives = await fakeUniqueRepresentatives(users);
   const petitions = await fakePetitions();
