@@ -6,7 +6,6 @@ export function createService(repository: Repository) {
       return (await repository.getAll()).map((petition) => {
         return {
           ...petition,
-          startTimestamp: new Date(petition.startTimestamp * 1000),
           isDone: petition.endTimestamp ? true : false,
         };
       });

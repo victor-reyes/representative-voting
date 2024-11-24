@@ -21,9 +21,7 @@ async function seed() {
   await seedFakeRepresentativeVotes(
     users,
     representatives,
-    insertedPetitions.map(
-      (petition) => petition.startTimestamp.getTime() / 1000,
-    ),
+    insertedPetitions.map((petition) => petition.startTimestamp),
   );
 }
 
