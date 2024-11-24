@@ -11,7 +11,12 @@ export function createRepository() {
         .orderBy(desc(petitionsTable.startTimestamp));
     },
 
-    async create(topic: string, description: string, choices: string[], timestamp?: number) {
+    async create(
+      topic: string,
+      description: string,
+      choices: string[],
+      timestamp?: number,
+    ) {
       await db.insert(petitionsTable).values({
         topic,
         description,
