@@ -6,7 +6,7 @@ export function createService(repository: Repository) {
   const representativeService = representative.service;
 
   return {
-    async getAll() {
+    async getAllPetitionsWithStats() {
       const petitions = (await repository.getAll()).map((petition) => {
         return {
           ...petition,
