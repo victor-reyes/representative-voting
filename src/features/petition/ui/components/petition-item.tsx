@@ -1,12 +1,16 @@
 import { Card } from "@/components";
+import { ChoiceState } from "../../logic";
 
 type Props = {
   petition: {
     id: number;
     topic: string;
     description: string;
-    choices: string[];
-    startTimestamp: Date;
+    choices: {
+      choice: string;
+      votes: number;
+      result: ChoiceState;
+    }[];
     isDone: boolean;
   };
 };
@@ -26,14 +30,37 @@ export function PetitionItem({ petition }: Props) {
   );
 }
 
-function Choices({ choices }: { choices: string[] }) {
+function Choices({
+  choices,
+}: {
+  choices: {
+    choice: string;
+    votes: number;
+    result: ChoiceState;
+  }[];
+}) {
   return (
     <div className="p-2">
       <h3 className="font-serif">Alternatives:</h3>
-      <ul className="list-disc  ps-6">
-        {choices.map((choice) => (
-          <li key={choice} className="text-slate-600">
-            {choice}
+      <ul className="list-disc ps-6">
+        {choices.map(({ choice, votes, result }) => (
+          <li
+            key={choice}
+            className={`${
+              result === "win"
+                ? "text-green-600"
+                : result === "draw"
+                ? "text-yellow-600"
+                : "text-slate-600"
+            }
+          `}
+          >
+            {choice} - {votes} votes
+            {result === "win"
+              ? " (winner)"
+              : result === "draw"
+              ? " (draw)"
+              : ""}
           </li>
         ))}
       </ul>
