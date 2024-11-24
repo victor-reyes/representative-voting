@@ -6,6 +6,10 @@ export function createService(repository: Repository) {
   const representativeService = representative.service;
 
   return {
+    async getAll() {
+      return await repository.getAll();
+    },
+
     async getAllPetitionsWithStats() {
       const petitions = (await repository.getAll()).map((petition) => {
         return {
