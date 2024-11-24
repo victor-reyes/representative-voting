@@ -7,12 +7,19 @@ export async function calculateRepresentativesVotingPower(
   const mostRecentVotes = getMostRecentVotes(userVotes);
 
   return representatives.map((representative) => {
-    const votes = mostRecentVotes.filter(
-      (vote) => vote.representativeEmail === representative.email,
-    );
+    const votes = getVotesFor(representative.email, mostRecentVotes);
     const votingPower = votes.length;
     return { ...representative, votingPower };
   });
+}
+
+export function getVotesFor(
+  representativeEmail: string,
+  mostRecentVotes: { representativeEmail: string; userEmail: string }[],
+) {
+  return mostRecentVotes.filter(
+    (vote) => vote.representativeEmail === representativeEmail,
+  );
 }
 
 export function getMostRecentVotes(
