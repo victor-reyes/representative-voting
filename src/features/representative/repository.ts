@@ -2,6 +2,7 @@ import { db } from "@/db";
 import {
   representativesTable,
   userPreferencesTable,
+  usersTable,
   userVotingTable,
 } from "./schemas";
 import { and, desc, eq, inArray, lte } from "drizzle-orm";
@@ -39,6 +40,10 @@ export function createRepository() {
             inArray(userPreferencesTable.userEmail, userEmails),
           ),
         );
+    },
+
+    async createUser(email: string) {
+      return await db.insert(usersTable).values({ email });
     },
   };
 }
