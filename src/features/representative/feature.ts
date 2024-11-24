@@ -4,10 +4,8 @@ import { createService } from "./service";
 
 export function createFeature() {
   const repository = createRepository();
-  const service = createService({
-    ...repository,
-    getAllPetitions: petition.service.getAll,
-  });
+  const petitionService = { getAllPetitions: petition.service.getAll };
+  const service = createService(repository, petitionService);
 
   return { repository, service };
 }

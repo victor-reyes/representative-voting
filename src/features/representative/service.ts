@@ -1,19 +1,10 @@
+import { petition } from "../petition";
 import { calculateRepresentativesVotingPower } from "./logic";
 import { Repository } from "./repository";
 
 export function createService(
-  repository: Repository & {
-    getAllPetitions: () => Promise<
-      {
-        id: number;
-        topic: string;
-        description: string;
-        alternatives: string[];
-        startTimestamp: Date;
-        isDone: boolean;
-      }[]
-    >;
-  },
+  repository: Repository,
+  petitionService: { getAllPetitions: typeof petition.service.getAll },
 ) {
   return {
     async getAll() {
