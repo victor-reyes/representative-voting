@@ -1,11 +1,11 @@
 import { db } from "@/db";
 import {
   representativesTable,
-  userPreferencesTable,
+  choicesTable,
   usersTable,
   userVotingTable,
 } from "./schemas";
-import { and, desc, eq, inArray, lte } from "drizzle-orm";
+import { and, desc, eq, lte } from "drizzle-orm";
 
 export function createRepository() {
   return {
@@ -27,11 +27,11 @@ export function createRepository() {
         .orderBy(desc(userVotingTable.timestamp));
     },
 
-    async getPreferencesByPetionId(petitionId: number) {
+    async getChoicesByPetionId(petitionId: number) {
       return await db
         .select()
-        .from(userPreferencesTable)
-        .where(eq(userPreferencesTable.petitionId, petitionId));
+        .from(choicesTable)
+        .where(eq(choicesTable.petitionId, petitionId));
     },
 
     async createUser(email: string) {
@@ -48,7 +48,7 @@ export function createRepository() {
       choice: string,
     ) {
       return await db
-        .insert(userPreferencesTable)
+        .insert(choicesTable)
         .values({ petitionId, userEmail, choice });
     },
 
@@ -65,12 +65,12 @@ export function createRepository() {
     async getVoteOfUserOnPetition(petitionId: number, userEmail: string) {
       return (
         await db
-          .select({ choice: userPreferencesTable.choice })
-          .from(userPreferencesTable)
+          .select({ choice: choicesTable.choice })
+          .from(choicesTable)
           .where(
             and(
-              eq(userPreferencesTable.petitionId, petitionId),
-              eq(userPreferencesTable.userEmail, userEmail),
+              eq(choicesTable.petitionId, petitionId),
+              eq(choicesTable.userEmail, userEmail),
             ),
           )
       )[0]?.choice as string | undefined;

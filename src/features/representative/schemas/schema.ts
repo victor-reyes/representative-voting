@@ -40,8 +40,8 @@ export const userVotingTable = pgTable(
   ],
 );
 
-export const userPreferencesTable = pgTable(
-  "user_preferences",
+export const choicesTable = pgTable(
+  "user_choices",
   {
     userEmail: text("user_email")
       .notNull()
