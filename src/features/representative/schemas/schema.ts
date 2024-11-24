@@ -19,10 +19,12 @@ export const representativesTable = pgTable("representatives", {
 export const userVotingTable = pgTable(
   "user_voting",
   {
-    representativeEmail: text("representative_email").references(
-      () => representativesTable.email,
-    ),
-    userEmail: text("user_email").references(() => usersTable.email),
+    representativeEmail: text("representative_email")
+      .notNull()
+      .references(() => representativesTable.email),
+    userEmail: text("user_email")
+      .notNull()
+      .references(() => usersTable.email),
     timestamp: integer()
       .notNull()
       .default(sql`extract(epoch from now())`),
