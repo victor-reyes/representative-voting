@@ -75,7 +75,7 @@ async function fakeUniqueUsers(numberOfUsers = 1000) {
 
 async function fakeUniqueRepresentatives(
   users: { email: string }[],
-  numberOfRepresentatives = 10,
+  numberOfRepresentatives = 5,
 ) {
   const representatives = Array.from({ length: numberOfRepresentatives }).map(
     () => {
@@ -92,7 +92,7 @@ async function fakeUniqueRepresentatives(
   return uniqueRepresentatives;
 }
 
-async function fakePetitions(numberOfPetitions = 100) {
+async function fakePetitions(numberOfPetitions = 10) {
   return faker.date
     .betweens({
       from: new Date().getTime() - 4 * YEAR_IN_MILLIS,
