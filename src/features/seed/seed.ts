@@ -88,19 +88,23 @@ async function seedFakePetitionVotes(
   users: { email: string }[],
   petitions: { id: number; choices: string[] }[],
 ) {
-  petitions.forEach(async (petition) => {
-    await Promise.all(
-      users.map(async (user) => {
-        const choice =
-          petition.choices[Math.floor(Math.random() * petition.choices.length)];
-        await representativeService.voteOnPetition(
-          petition.id,
-          user.email,
-          choice,
-        );
-      }),
-    );
-  });
+  await Promise.all(
+    petitions.map(async (petition) => {
+      await Promise.all(
+        users.map(async (user) => {
+          const choice =
+            petition.choices[
+              Math.floor(Math.random() * petition.choices.length)
+            ];
+          await representativeService.voteOnPetition(
+            petition.id,
+            user.email,
+            choice,
+          );
+        }),
+      );
+    }),
+  );
 }
 
 seed();
