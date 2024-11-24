@@ -69,6 +69,20 @@ export function createRepository() {
         .insert(userVotingTable)
         .values({ representativeEmail, userEmail, timestamp });
     },
+
+    async getVoteOfUserOnPetition(petitionId: number, userEmail: string) {
+      return (
+        await db
+          .select({ choice: userPreferencesTable.choice })
+          .from(userPreferencesTable)
+          .where(
+            and(
+              eq(userPreferencesTable.petitionId, petitionId),
+              eq(userPreferencesTable.userEmail, userEmail),
+            ),
+          )
+      )[0]?.choice as string | undefined;
+    },
   };
 }
 
