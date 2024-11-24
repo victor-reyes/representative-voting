@@ -4,6 +4,7 @@ import { faker } from "@faker-js/faker";
 
 const petitionService = petition.service;
 const representativeService = representative.service;
+const YEAR_IN_MILLIS = 1000 * 60 * 60 * 24 * 365;
 
 async function seed() {
   const users = await fakeUniqueUsers();
