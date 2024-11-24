@@ -49,6 +49,16 @@ export function createRepository() {
     async createUsers(users: (typeof usersTable.$inferInsert)[]) {
       return await db.insert(usersTable).values(users);
     },
+
+    async voteOnPetition(
+      petitionId: number,
+      userEmail: string,
+      choice: string,
+    ) {
+      return await db
+        .insert(userPreferencesTable)
+        .values({ petitionId, userEmail, choice });
+    },
   };
 }
 

@@ -33,5 +33,9 @@ export function createService(
     async createUsers(users: (typeof usersTable.$inferInsert)[]) {
       return await repository.createUsers(users);
     },
+
+    async voteOnPetition(petitionId: number, userEmail: string, choice: string) {
+      return await repository.voteOnPetition(petitionId, userEmail, choice);
+    }
   };
 }
