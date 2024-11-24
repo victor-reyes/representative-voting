@@ -14,6 +14,25 @@ describe("Representatives voting power:", async () => {
 
     deepEqual(result, []);
   });
-  it("should return list with representatives wwith voting power of zero if there are no votes", () => {});
+  it("should return list with representatives wwith voting power of zero if there are no votes", async () => {
+    const representatives = [
+      { email: "email1", firstName: "", lastName: "", timestamp: 1 },
+      { email: "email2", firstName: "", lastName: "", timestamp: 2 },
+      { email: "email3", firstName: "", lastName: "", timestamp: 3 },
+    ];
+
+    const result = await calculateRepresentativesVotingPower(
+      [],
+      representatives,
+    );
+
+    deepEqual(
+      result,
+      representatives.map((representative) => ({
+        ...representative,
+        votingPower: 0,
+      })),
+    );
+  });
   it("should be calculated based on the number of users' most recent votes", () => {});
 });
