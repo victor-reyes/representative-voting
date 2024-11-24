@@ -32,6 +32,7 @@ async function seedPetitions(
         petition.topic,
         petition.description,
         petition.choices,
+        petition.timestamp,
       );
     }),
   );

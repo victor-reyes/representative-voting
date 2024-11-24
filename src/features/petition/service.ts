@@ -12,8 +12,18 @@ export function createService(repository: Repository) {
       });
     },
 
-    async create(topic: string, description: string, choices: string[]) {
-      return await repository.create(topic, description, choices);
+    async create(
+      topic: string,
+      description: string,
+      choices: string[],
+      timestamp?: number,
+    ) {
+      return await repository.create(
+        topic,
+        description,
+        choices,
+        timestamp ? Math.floor(timestamp / 1000) : undefined,
+      );
     },
   };
 }
