@@ -18,35 +18,44 @@ async function seed() {
   await seedFakePetitionVotes(users, insertedPetitions);
 }
 
-async function seedPetitions(petitions: { topic: string; description: string; choices: string[]; timestamp: number; }[]) {
+async function seedPetitions(
+  petitions: {
+    topic: string;
+    description: string;
+    choices: string[];
+    timestamp: number;
+  }[],
+) {
   await Promise.all(
     petitions.map(async (petition) => {
       await petitionService.create(
         petition.topic,
         petition.description,
-        petition.choices
+        petition.choices,
       );
-    })
+    }),
   );
 }
 
-async function seedRepresentatives(representatives: { firstName: string; lastName: string; email: string; }[]) {
+async function seedRepresentatives(
+  representatives: { firstName: string; lastName: string; email: string }[],
+) {
   await Promise.all(
     representatives.map(async (representative) => {
       await representativeService.create(
         representative.firstName,
         representative.lastName,
-        representative.email
+        representative.email,
       );
-    })
+    }),
   );
 }
 
-async function seedUsers(users: { email: string; }[]) {
+async function seedUsers(users: { email: string }[]) {
   await Promise.all(
     users.map(async (user) => {
       await representativeService.createUser(user.email);
-    })
+    }),
   );
 }
 
