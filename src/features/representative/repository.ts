@@ -27,19 +27,11 @@ export function createRepository() {
         .orderBy(desc(userVotingTable.timestamp));
     },
 
-    async getPreferencesByPetionIdAndUsersEmails(
-      petitionId: number,
-      userEmails: string[],
-    ) {
+    async getPreferencesByPetionId(petitionId: number) {
       return await db
         .select()
         .from(userPreferencesTable)
-        .where(
-          and(
-            eq(userPreferencesTable.petitionId, petitionId),
-            inArray(userPreferencesTable.userEmail, userEmails),
-          ),
-        );
+        .where(eq(userPreferencesTable.petitionId, petitionId));
     },
 
     async createUser(email: string) {
