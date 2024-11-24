@@ -40,10 +40,14 @@ export const userVotingTable = pgTable(
   ],
 );
 
-export const userPreferencesTable = pgTable("user_preferences", {
-  userEmail: text("user_email")
-    .primaryKey()
-    .references(() => usersTable.email),
-  petitionId: integer("petion_id").notNull(),
-  choice: varchar().notNull(),
-});
+export const userPreferencesTable = pgTable(
+  "user_preferences",
+  {
+    userEmail: text("user_email")
+      .notNull()
+      .references(() => usersTable.email),
+    petitionId: integer("petion_id").notNull(),
+    choice: varchar().notNull(),
+  },
+  (t) => [primaryKey({ columns: [t.userEmail, t.petitionId] })],
+);
