@@ -1,6 +1,10 @@
 import { db } from "@/db";
-import { representativesTable, userVotingTable } from "./schemas";
-import { desc, lte } from "drizzle-orm";
+import {
+  representativesTable,
+  userPreferencesTable,
+  userVotingTable,
+} from "./schemas";
+import { and, desc, eq, inArray, lte } from "drizzle-orm";
 
 export function createRepository() {
   return {
@@ -20,6 +24,21 @@ export function createRepository() {
         .from(userVotingTable)
         .where(lte(userVotingTable.timestamp, timestamp))
         .orderBy(desc(userVotingTable.timestamp));
+    },
+
+    async getPreferencesByPetionIdAndUsersEmails(
+      petitionId: number,
+      userEmails: string[],
+    ) {
+      return await db
+        .select()
+        .from(userPreferencesTable)
+        .where(
+          and(
+            eq(userPreferencesTable.petitionId, petitionId),
+            inArray(userPreferencesTable.userEmail, userEmails),
+          ),
+        );
     },
   };
 }
