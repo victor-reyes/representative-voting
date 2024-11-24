@@ -1,5 +1,6 @@
 import { db } from "@/db";
-import { representativesTable } from "./schemas";
+import { representativesTable, userVotingTable } from "./schemas";
+import { desc, lte } from "drizzle-orm";
 
 export function createRepository() {
   return {
@@ -11,6 +12,14 @@ export function createRepository() {
       return await db
         .insert(representativesTable)
         .values({ firstName, lastName, email });
+    },
+
+    async getUserVotesBeforeTimestamp(timestamp: number) {
+      return await db
+        .select()
+        .from(userVotingTable)
+        .where(lte(userVotingTable.timestamp, timestamp))
+        .orderBy(desc(userVotingTable.timestamp));
     },
   };
 }
