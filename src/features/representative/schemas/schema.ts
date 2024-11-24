@@ -1,5 +1,11 @@
 import { sql } from "drizzle-orm";
-import { integer, pgTable, primaryKey, text } from "drizzle-orm/pg-core";
+import {
+  integer,
+  pgTable,
+  primaryKey,
+  text,
+  varchar,
+} from "drizzle-orm/pg-core";
 
 export const usersTable = pgTable("users", {
   email: text().primaryKey(),
@@ -39,4 +45,5 @@ export const userPreferencesTable = pgTable("user_preferences", {
     .primaryKey()
     .references(() => usersTable.email),
   petitionId: integer("petion_id").notNull(),
+  preference: varchar().notNull(),
 });
