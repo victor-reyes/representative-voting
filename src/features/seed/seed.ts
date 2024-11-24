@@ -35,6 +35,9 @@ async function seed() {
       );
     }),
   );
+
+  const insertedPetitions = await petitionService.getAll();
+  await seedFakePetitionVotes(users, insertedPetitions);
 }
 
 async function fakeUniqueUsers(numberOfUsers = 1000) {
@@ -79,6 +82,25 @@ async function fakePetitions(numberOfPetitions = 100) {
         timestamp,
       };
     });
+}
+
+async function seedFakePetitionVotes(
+  users: { email: string }[],
+  petitions: { id: number; choices: string[] }[],
+) {
+  petitions.forEach(async (petition) => {
+    await Promise.all(
+      users.map(async (user) => {
+        const choice =
+          petition.choices[Math.floor(Math.random() * petition.choices.length)];
+        await representativeService.voteOnPetition(
+          petition.id,
+          user.email,
+          choice,
+        );
+      }),
+    );
+  });
 }
 
 seed();
