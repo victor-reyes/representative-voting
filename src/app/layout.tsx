@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className="overscroll-none">
         <nav className="px-8 py-4 bg-slate-700 text-white sticky top-0">
           <ul className="flex gap-4">
             {NavItem.map((navItem) => (
