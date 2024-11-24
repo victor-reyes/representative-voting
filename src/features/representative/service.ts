@@ -14,5 +14,15 @@ export function createService(
     async create(firstName: string, lastName: string, email: string) {
       return await repository.create(firstName, lastName, email);
     },
+
+    async getRepresentativesWithVotingPowerByTimestamp(timestamp: number) {
+      const userVotes = await repository.getUserVotesBeforeTimestamp(timestamp);
+      const representatives = await repository.getAll();
+
+      return await calculateRepresentativesVotingPower(
+        userVotes,
+        representatives,
+      );
+    },
   };
 }
