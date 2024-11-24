@@ -6,17 +6,18 @@ async function seed() {
   const petitionService = petition.service;
   const representativeService = representative.service;
 
-  const users = await getFakeUsers();
-  const representatives = await getFakeRepresentatives(users);
+  const users = await fakeUniqueUsers();
+  const representatives = await fakeUniqueRepresentatives(users);
+
 }
 
-async function getFakeUsers(numberOfUsers = 1000) {
+async function fakeUniqueUsers(numberOfUsers = 1000) {
   return faker.helpers
     .uniqueArray(faker.internet.email, numberOfUsers)
     .map((email) => ({ email }));
 }
 
-async function getFakeRepresentatives(
+async function fakeUniqueRepresentatives(
   users: { email: string }[],
   numberOfRepresentatives = 10,
 ) {
