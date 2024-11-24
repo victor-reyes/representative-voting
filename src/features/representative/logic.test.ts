@@ -34,5 +34,32 @@ describe("Representatives voting power:", async () => {
       })),
     );
   });
-  it("should be calculated based on the number of users' most recent votes", () => {});
+  it("should be calculated based on the number of users' most recent votes", async () => {
+    const userVotes = [
+      { timestamp: 1, representativeEmail: "rep1", userEmail: "user1" },
+      { timestamp: 2, representativeEmail: "rep2", userEmail: "user1" },
+      { timestamp: 1, representativeEmail: "rep2", userEmail: "user2" },
+      { timestamp: 2, representativeEmail: "rep1", userEmail: "user2" },
+      { timestamp: 1, representativeEmail: "rep2", userEmail: "user3" },
+      { timestamp: 2, representativeEmail: "rep1", userEmail: "user3" },
+      { timestamp: 3, representativeEmail: "rep2", userEmail: "user3" },
+      { timestamp: 1, representativeEmail: "rep2", userEmail: "user4" },
+    ].sort((a, b) => a.timestamp - b.timestamp);
+
+    const representatives = [
+      { email: "rep1", firstName: "", lastName: "", timestamp: 0 },
+      { email: "rep2", firstName: "", lastName: "", timestamp: 0 },
+    ];
+
+    const result = await calculateRepresentativesVotingPower(
+      userVotes,
+      representatives,
+    );
+    const expected = [
+      { ...representatives[0], votingPower: 1 },
+      { ...representatives[1], votingPower: 3 },
+    ];
+
+    deepEqual(result, expected);
+  });
 });
