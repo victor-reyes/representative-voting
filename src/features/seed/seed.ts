@@ -8,7 +8,33 @@ async function seed() {
 
   const users = await fakeUniqueUsers();
   const representatives = await fakeUniqueRepresentatives(users);
+  const petitions = await fakePetitions();
 
+  await Promise.all(
+    users.map(async (user) => {
+      await representativeService.createUser(user.email);
+    }),
+  );
+
+  await Promise.all(
+    representatives.map(async (representative) => {
+      await representativeService.create(
+        representative.firstName,
+        representative.lastName,
+        representative.email,
+      );
+    }),
+  );
+
+  await Promise.all(
+    petitions.map(async (petition) => {
+      await petitionService.create(
+        petition.topic,
+        petition.description,
+        petition.choices,
+      );
+    }),
+  );
 }
 
 async function fakeUniqueUsers(numberOfUsers = 1000) {
