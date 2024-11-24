@@ -1,4 +1,3 @@
-import { petition } from "../petition";
 import {
   calculateAgreementRate,
   calculateRepresentativesVotingPower,
@@ -8,10 +7,7 @@ import {
 import { Repository } from "./repository";
 import { usersTable } from "./schemas";
 
-export function createService(
-  repository: Repository,
-  petitionService: { getAllPetitions: typeof petition.service.getAll },
-) {
+export function createService(repository: Repository) {
   return {
     async getAll() {
       return await repository.getAll();
@@ -67,6 +63,8 @@ export function createService(
             agreementRate,
           };
         });
+
+      return representativesWithStats;
     },
 
     async createUser(email: string) {
