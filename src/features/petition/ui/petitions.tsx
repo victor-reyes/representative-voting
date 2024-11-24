@@ -4,7 +4,7 @@ import { PetitionDrawer } from "./components/petion-drawer";
 import { ListSectionWithAddFormDrawer } from "@/components";
 
 export async function Petitions() {
-  const petitions = await petition.service.getAll();
+  const petitions = await petition.service.getAllPetitionsWithStats();
 
   return (
     <ListSectionWithAddFormDrawer

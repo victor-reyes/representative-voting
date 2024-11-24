@@ -1,5 +1,6 @@
 import { Card } from "@/components";
 import { ChoiceState } from "../../logic";
+import { RepresentativesStats } from "./representatives-stats";
 
 type Props = {
   petition: {
@@ -11,6 +12,15 @@ type Props = {
       votes: number;
       result: ChoiceState;
     }[];
+    representatives: {
+      vote: string;
+      votingPower: number;
+      agreementRate: number;
+      email: string;
+      firstName: string;
+      lastName: string;
+      timestamp: number;
+    }[];
     isDone: boolean;
   };
 };
@@ -18,13 +28,18 @@ type Props = {
 export function PetitionItem({ petition }: Props) {
   return (
     <li>
-      <Card className="px-4 py-2 flex gap-4 justify-between items-center">
-        <div>
-          <h2 className="font-bold">{petition.topic}</h2>
-          <p className="text-slate-600">{petition.description}</p>
-          <Choices choices={petition.choices} />
+      <Card className="px-4 py-2 space-x-4">
+        <div className="flex gap-4 justify-between items-center">
+          <div>
+            <h2 className="font-bold">{petition.topic}</h2>
+            <p className="text-slate-600">{petition.description}</p>
+          </div>
+          <div>{petition.isDone ? "Done" : "Ongoing"}</div>
         </div>
-        <div>{petition.isDone ? "Done" : "Ongoing"}</div>
+        <Choices choices={petition.choices} />
+        {petition.representatives.length > 0 && (
+          <RepresentativesStats representatives={petition.representatives} />
+        )}
       </Card>
     </li>
   );
