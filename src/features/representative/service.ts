@@ -1,5 +1,10 @@
 import { petition } from "../petition";
-import { calculateRepresentativesVotingPower } from "./logic";
+import {
+  calculateAgreementRate,
+  calculateRepresentativesVotingPower,
+  getMostRecentVotes,
+  getVotesFor,
+} from "./logic";
 import { Repository } from "./repository";
 import { usersTable } from "./schemas";
 
@@ -24,6 +29,44 @@ export function createService(
         userVotes,
         representatives,
       );
+    },
+
+    async getRepresentativesForPetition(petitionId: number, timestamp: number) {
+      const userVotes = await repository.getUserVotesBeforeTimestamp(timestamp);
+      const mostRecentVotes = getMostRecentVotes(userVotes);
+
+      const userPrefs = await repository.getChoicesByPetionId(petitionId);
+      const representatives = await repository.getAll();
+
+      const representativesWithStats = representatives
+        .map((representative) => {
+          const vote = userPrefs.find(
+            (pref) => pref.userEmail === representative.email,
+          )?.choice;
+          return { ...representative, vote };
+        })
+        .filter((representative) => representative.vote !== undefined)
+        .map((representative) => {
+          const votes = getVotesFor(representative.email, mostRecentVotes);
+          const voterPrefs = votes
+            .map((vote) => {
+              return userPrefs.find(
+                (pref) => pref.userEmail === vote.userEmail,
+              );
+            })
+            .filter((pref) => pref !== undefined)
+            .map((pref) => pref.choice);
+          const agreementRate = calculateAgreementRate(
+            representative.vote!,
+            voterPrefs,
+          );
+          return {
+            ...representative,
+            vote: representative.vote!,
+            votingPower: votes.length,
+            agreementRate,
+          };
+        });
     },
 
     async createUser(email: string) {
