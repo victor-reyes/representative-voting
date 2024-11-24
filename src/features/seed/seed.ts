@@ -11,9 +11,9 @@ async function seed() {
 }
 
 async function getFakeUsers(numberOfUsers = 1000) {
-  return Array.from({ length: numberOfUsers }).map(() => ({
-    email: faker.internet.email(),
-  }));
+  return faker.helpers
+    .uniqueArray(faker.internet.email, numberOfUsers)
+    .map((email) => ({ email }));
 }
 
 async function getFakeRepresentatives(
