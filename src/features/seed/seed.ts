@@ -128,4 +128,26 @@ async function seedFakePetitionVotes(
   );
 }
 
+async function seedFakeRepresentativeVotes(
+  users: { email: string }[],
+  representatives: { email: string }[],
+  petitionTimestamps: number[],
+) {
+  await Promise.all(
+    petitionTimestamps.map(async (timestamp) => {
+      await Promise.all(
+        users.map(async (user) => {
+          const representative =
+            representatives[Math.floor(Math.random() * representatives.length)];
+          await representativeService.voteForRepresentative(
+            representative.email,
+            user.email,
+            timestamp - 1,
+          );
+        }),
+      );
+    }),
+  );
+}
+
 seed();
