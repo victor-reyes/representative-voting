@@ -130,6 +130,7 @@ async function seedFakePetitionVotes(
           );
         }),
       );
+      await petitionService.concludePetition(petition.id);
     }),
   );
 }
