@@ -45,7 +45,7 @@ export function PetitionItem({ petition }: Props) {
             </Button>
           )}
         </div>
-        <Choices choices={petition.choices} />
+        <Choices choices={petition.choices} concluded={petition.isDone} />
         {petition.representatives.length > 0 && (
           <RepresentativesStats representatives={petition.representatives} />
         )}
@@ -56,12 +56,14 @@ export function PetitionItem({ petition }: Props) {
 
 function Choices({
   choices,
+  concluded,
 }: {
   choices: {
     choice: string;
     votes: number;
     result: ChoiceState;
   }[];
+  concluded: boolean;
 }) {
   return (
     <div className="p-2">
@@ -71,19 +73,24 @@ function Choices({
           <li
             key={choice}
             className={`${
-              result === "win"
+              !concluded
+                ? "text-slate-700"
+                : result === "win"
                 ? "text-green-600"
                 : result === "draw"
                 ? "text-yellow-600"
                 : "text-slate-600"
             }
-          `}
+            `}
           >
-            {choice} - {votes} votes
-            {result === "win"
-              ? " (winner)"
-              : result === "draw"
-              ? " (draw)"
+            {choice}
+            {concluded && ` - ${votes} votes`}
+            {concluded
+              ? result === "win"
+                ? " (winner)"
+                : result === "draw"
+                ? " (draw)"
+                : ""
               : ""}
           </li>
         ))}
