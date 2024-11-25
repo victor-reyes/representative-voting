@@ -1,6 +1,9 @@
-import { Card } from "@/components";
+"use client";
+
+import { Button, Card } from "@/components";
 import { ChoiceState } from "../../logic";
 import { RepresentativesStats } from "./representatives-stats";
+import { concludePetitionAction } from "../../actions";
 
 type Props = {
   petition: {
@@ -34,7 +37,13 @@ export function PetitionItem({ petition }: Props) {
             <h2 className="font-bold">{petition.topic}</h2>
             <p className="text-slate-600">{petition.description}</p>
           </div>
-          <div>{petition.isDone ? "Done" : "Ongoing"}</div>
+          {petition.isDone ? (
+            <div>Done</div>
+          ) : (
+            <Button onClick={() => concludePetitionAction(petition.id)}>
+              Conclude
+            </Button>
+          )}
         </div>
         <Choices choices={petition.choices} />
         {petition.representatives.length > 0 && (

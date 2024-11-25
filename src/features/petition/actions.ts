@@ -14,3 +14,8 @@ export async function createPetitionAction(formData: FormData) {
   revalidatePath("/petitions");
   redirect("/petitions");
 }
+
+export async function concludePetitionAction(petitionId: number) {
+  await petition.service.concludePetition(petitionId);
+  revalidatePath("/petitions");
+}

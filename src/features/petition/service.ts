@@ -50,5 +50,9 @@ export function createService(repository: Repository) {
         timestamp ? Math.floor(timestamp / 1000) : undefined,
       );
     },
+
+    async concludePetition(petitionId: number) {
+      return await repository.concludePetition(petitionId);
+    },
   };
 }
