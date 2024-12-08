@@ -1,4 +1,3 @@
-import { petition } from "../petition";
 import { createRepository } from "./repository";
 import { createService } from "./service";
 
