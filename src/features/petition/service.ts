@@ -1,10 +1,16 @@
 import { Repository } from "./repository";
 import { calculateVotesFor, calculateWinLostDraw } from "./logic";
-import { representative } from "..";
 
-export function createService(repository: Repository) {
-  const representativeService = representative.service;
+type RepresentativeRepository = {
+  getRepresentativesForPetition(
+    petitionId: number,
+    timestamp: number,
+  ): Promise<{ vote: string; votingPower: number }[]>;
+};
 
+export function createService(
+  repository: Repository & RepresentativeRepository,
+) {
   return {
     async getAll() {
       return await repository.getAll();
@@ -21,7 +27,7 @@ export function createService(repository: Repository) {
       const petionsWithStats = await Promise.all(
         petitions.map(async (petition) => {
           const representatives =
-            await representativeService.getRepresentativesForPetition(
+            await repository.getRepresentativesForPetition(
               petition.id,
               petition.startTimestamp,
             );
