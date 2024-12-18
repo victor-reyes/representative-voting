@@ -10,5 +10,5 @@ export function createFeature() {
     ...repository,
     getRepresentativesForPetition,
   });
-  return { repository, service };
+  return { service };
 }
