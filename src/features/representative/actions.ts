@@ -6,8 +6,8 @@ import { representativeFeature } from "./instance";
 import { z } from "zod";
 
 const representativeCreationSchema = z.object({
-  firstName: z.string(),
-  lastName: z.string(),
+  firstName: z.string().min(1),
+  lastName: z.string().min(1),
   email: z.string().email(),
 });
 

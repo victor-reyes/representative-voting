@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import { z } from "zod";
 
 const petitionCreationSchema = z.object({
-  title: z.string(),
+  title: z.string().min(1),
   description: z.string(),
   choices: z
     .string()
