@@ -2,7 +2,7 @@
 
 ## Overview
 Develop a voting application to visualize the impact of public votes in a representative democracy.
-![BPP](bpp.png)
+![BPP](BPP.png)
 
 ## Features
 - **Representative Management:** Add and list representatives with unique emails.
