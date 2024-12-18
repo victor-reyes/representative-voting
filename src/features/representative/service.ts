@@ -5,21 +5,26 @@ import {
   getVotesFor,
 } from "./logic";
 import { Repository } from "./repository";
-import { usersTable } from "./schemas";
+import {
+  Representative,
+  User,
+  VoteForRepresentative,
+  VoteOnPetition,
+} from "./types";
 
 export function createService(repository: Repository) {
   return {
-    async getAll() {
-      return await repository.getAll();
+    async getAllRepresentatives() {
+      return await repository.getAllRepresentatives();
     },
 
-    async create(firstName: string, lastName: string, email: string) {
-      return await repository.create(firstName, lastName, email);
+    async createRepresentative(representative: Representative) {
+      return await repository.createRepresentative(representative);
     },
 
     async getRepresentativesWithVotingPowerByTimestamp(timestamp: number) {
       const userVotes = await repository.getUserVotesBeforeTimestamp(timestamp);
-      const representatives = await repository.getAll();
+      const representatives = await repository.getAllRepresentatives();
 
       return await calculateRepresentativesVotingPower(
         userVotes,
@@ -32,7 +37,7 @@ export function createService(repository: Repository) {
       const mostRecentVotes = getMostRecentVotes(userVotes);
 
       const userPrefs = await repository.getChoicesByPetionId(petitionId);
-      const representatives = await repository.getAll();
+      const representatives = await repository.getAllRepresentatives();
 
       const representativesWithStats = representatives
         .map((representative) => {
@@ -67,32 +72,20 @@ export function createService(repository: Repository) {
       return representativesWithStats;
     },
 
-    async createUser(email: string) {
-      return await repository.createUser(email);
+    async createUser(user: User) {
+      return await repository.createUser(user);
     },
 
-    async createUsers(users: (typeof usersTable.$inferInsert)[]) {
+    async createUsers(users: User[]) {
       return await repository.createUsers(users);
     },
 
-    async voteOnPetition(
-      petitionId: number,
-      userEmail: string,
-      choice: string,
-    ) {
-      return await repository.voteOnPetition(petitionId, userEmail, choice);
+    async voteOnPetition(voteOnPetition: VoteOnPetition) {
+      return await repository.voteOnPetition(voteOnPetition);
     },
 
-    async voteForRepresentative(
-      representativeEmail: string,
-      userEmail: string,
-      timestamp: number,
-    ) {
-      return await repository.voteForRepresentative(
-        representativeEmail,
-        userEmail,
-        timestamp,
-      );
+    async voteForRepresentative(voteForRepresentative: VoteForRepresentative) {
+      return await repository.voteForRepresentative(voteForRepresentative);
     },
   };
 }

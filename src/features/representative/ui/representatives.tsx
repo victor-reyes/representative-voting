@@ -1,9 +1,10 @@
 import { Explanation, ListSectionWithAddFormDrawer } from "@/components";
-import { representative } from "../instance";
+import { representativeFeature } from "../instance";
 import { RepresentativeDrawer, RepresentativeItem } from "./components";
 
 export async function Representatives() {
-  const representatives = await representative.service.getAll();
+  const representatives =
+    await representativeFeature.service.getAllRepresentatives();
 
   return representatives.length > 0 ? (
     <ListSectionWithAddFormDrawer

@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { representative } from "./instance";
+import { representativeFeature } from "./instance";
 import { z } from "zod";
 
 const representativeCreationSchema = z.object({
@@ -20,8 +20,8 @@ export async function createRepresentativeAction(formData: FormData) {
     throw new Error("Invalid form data for creating a representative");
   }
 
-  const { firstName, lastName, email } = validatedCreateRepresentative.data;
-  representative.service.create(firstName, lastName, email);
+  const representative = validatedCreateRepresentative.data;
+  representativeFeature.service.createRepresentative(representative);
 
   revalidatePath("/representatives");
   redirect("/representatives");

@@ -6,17 +6,21 @@ import {
   userVotingTable,
 } from "./schemas";
 import { and, desc, eq, lte } from "drizzle-orm";
+import {
+  Representative,
+  User,
+  VoteForRepresentative,
+  VoteOnPetition,
+} from "./types";
 
 export function createRepository() {
   return {
-    async getAll() {
+    async getAllRepresentatives() {
       return await db.select().from(representativesTable);
     },
 
-    async create(firstName: string, lastName: string, email: string) {
-      return await db
-        .insert(representativesTable)
-        .values({ firstName, lastName, email });
+    async createRepresentative(representative: Representative) {
+      return await db.insert(representativesTable).values(representative);
     },
 
     async getUserVotesBeforeTimestamp(timestamp: number) {
@@ -34,35 +38,23 @@ export function createRepository() {
         .where(eq(choicesTable.petitionId, petitionId));
     },
 
-    async createUser(email: string) {
-      return await db.insert(usersTable).values({ email });
+    async createUser(user: User) {
+      return await db.insert(usersTable).values(user);
     },
 
-    async createUsers(users: (typeof usersTable.$inferInsert)[]) {
+    async createUsers(users: User[]) {
       return await db.insert(usersTable).values(users);
     },
 
-    async voteOnPetition(
-      petitionId: number,
-      userEmail: string,
-      choice: string,
-    ) {
-      return await db
-        .insert(choicesTable)
-        .values({ petitionId, userEmail, choice });
+    async voteOnPetition(voteOnPetition: VoteOnPetition) {
+      return await db.insert(choicesTable).values(voteOnPetition);
     },
 
-    async voteForRepresentative(
-      representativeEmail: string,
-      userEmail: string,
-      timestamp: number,
-    ) {
-      return await db
-        .insert(userVotingTable)
-        .values({ representativeEmail, userEmail, timestamp });
+    async voteForRepresentative(voteForRepresentative: VoteForRepresentative) {
+      return await db.insert(userVotingTable).values(voteForRepresentative);
     },
 
-    async getVoteOfUserOnPetition(petitionId: number, userEmail: string) {
+    async getVoteOfUserOnPetitionBy(petitionId: number, userEmail: string) {
       return (
         await db
           .select({ choice: choicesTable.choice })

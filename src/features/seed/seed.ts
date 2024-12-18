@@ -1,9 +1,9 @@
 import { petition } from "../petition";
-import { representative } from "../representative";
+import { representativeFeature } from "../representative";
 import { faker } from "@faker-js/faker";
 
 const petitionService = petition.service;
-const representativeService = representative.service;
+const representativeService = representativeFeature.service;
 const YEAR_IN_MILLIS = 1000 * 60 * 60 * 24 * 365;
 
 async function seed() {
@@ -15,7 +15,7 @@ async function seed() {
   await seedRepresentatives(representatives);
   await seedPetitions(petitions);
 
-  const insertedPetitions = await petitionService.getAll();
+  const insertedPetitions = await petitionService.getAllPetitions();
   await seedFakePetitionVotes(users, insertedPetitions);
 
   await seedFakeRepresentativeVotes(
@@ -35,7 +35,7 @@ async function seedPetitions(
 ) {
   await Promise.all(
     petitions.map(async (petition) => {
-      await petitionService.create(
+      await petitionService.createPetition(
         petition.topic,
         petition.description,
         petition.choices,
@@ -50,11 +50,7 @@ async function seedRepresentatives(
 ) {
   await Promise.all(
     representatives.map(async (representative) => {
-      await representativeService.create(
-        representative.firstName,
-        representative.lastName,
-        representative.email,
-      );
+      await representativeService.createRepresentative(representative);
     }),
   );
 }
@@ -62,7 +58,7 @@ async function seedRepresentatives(
 async function seedUsers(users: { email: string }[]) {
   await Promise.all(
     users.map(async (user) => {
-      await representativeService.createUser(user.email);
+      await representativeService.createUser(user);
     }),
   );
 }
@@ -123,11 +119,12 @@ async function seedFakePetitionVotes(
             petition.choices[
               Math.floor(Math.random() * petition.choices.length)
             ];
-          await representativeService.voteOnPetition(
-            petition.id,
-            user.email,
+          const voteOnPetition = {
+            userEmail: user.email,
+            petitionId: petition.id,
             choice,
-          );
+          };
+          await representativeService.voteOnPetition(voteOnPetition);
         }),
       );
       await petitionService.concludePetition(petition.id);
@@ -146,10 +143,13 @@ async function seedFakeRepresentativeVotes(
         users.map(async (user) => {
           const representative =
             representatives[Math.floor(Math.random() * representatives.length)];
+          const voteForRepresentative = {
+            representativeEmail: representative.email,
+            userEmail: user.email,
+            timestamp: timestamp - 1,
+          };
           await representativeService.voteForRepresentative(
-            representative.email,
-            user.email,
-            timestamp - 1,
+            voteForRepresentative,
           );
         }),
       );

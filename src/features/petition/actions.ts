@@ -26,7 +26,7 @@ export async function createPetitionAction(formData: FormData) {
   }
 
   const { title, description, choices } = validatedCreatePetition.data;
-  await petition.service.create(title, description, choices);
+  await petition.service.createPetition(title, description, choices);
 
   revalidatePath("/petitions");
   redirect("/petitions");

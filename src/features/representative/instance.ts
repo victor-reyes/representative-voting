@@ -1,3 +1,3 @@
 import { createFeature } from "./feature";
 
-export const representative = createFeature();
+export const representativeFeature = createFeature();

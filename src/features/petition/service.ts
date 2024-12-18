@@ -1,23 +1,16 @@
 import { Repository } from "./repository";
 import { calculateVotesFor, calculateWinLostDraw } from "./logic";
 
-type RepresentativeRepository = {
-  getRepresentativesForPetition(
-    petitionId: number,
-    timestamp: number,
-  ): Promise<{ vote: string; votingPower: number }[]>;
-};
-
 export function createService(
   repository: Repository & RepresentativeRepository,
 ) {
   return {
-    async getAll() {
-      return await repository.getAll();
+    async getAllPetitions() {
+      return await repository.getAllPetitions();
     },
 
     async getAllPetitionsWithStats() {
-      const petitions = (await repository.getAll()).map((petition) => {
+      const petitions = (await repository.getAllPetitions()).map((petition) => {
         return {
           ...petition,
           isDone: petition.endTimestamp ? true : false,
@@ -43,18 +36,18 @@ export function createService(
       return petionsWithStats;
     },
 
-    async create(
+    async createPetition(
       topic: string,
       description: string,
       choices: string[],
       timestamp?: number,
     ) {
-      return await repository.create(
+      return await repository.createPetition({
         topic,
         description,
         choices,
-        timestamp ? Math.floor(timestamp / 1000) : undefined,
-      );
+        startTimestamp: timestamp ? Math.floor(timestamp / 1000) : undefined,
+      });
     },
 
     async concludePetition(petitionId: number) {
@@ -62,3 +55,20 @@ export function createService(
     },
   };
 }
+
+type RepresentativeRepository = {
+  getRepresentativesForPetition(
+    petitionId: number,
+    timestamp: number,
+  ): Promise<
+    {
+      vote: string;
+      votingPower: number;
+      agreementRate: number;
+      firstName: string;
+      lastName: string;
+      email: string;
+      timestamp: number;
+    }[]
+  >;
+};

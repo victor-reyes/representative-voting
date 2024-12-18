@@ -1,10 +1,14 @@
-import { representative } from "../representative";
+import { representativeFeature } from "../representative";
 import { createRepository } from "./repository";
 import { createService } from "./service";
 
 export function createFeature() {
   const repository = createRepository();
-  const getRepresentativesForPetition = representative.service.getRepresentativesForPetition
-  const service = createService({...repository, getRepresentativesForPetition});
+  const getRepresentativesForPetition =
+    representativeFeature.service.getRepresentativesForPetition;
+  const service = createService({
+    ...repository,
+    getRepresentativesForPetition,
+  });
   return { repository, service };
 }

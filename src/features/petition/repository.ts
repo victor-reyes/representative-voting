@@ -1,28 +1,19 @@
 import { db } from "@/db";
 import { petitionsTable } from "./schemas/schema";
 import { desc, eq } from "drizzle-orm";
+import { PetitionInsert } from "./ui/types";
 
 export function createRepository() {
   return {
-    async getAll() {
+    async getAllPetitions() {
       return await db
         .select()
         .from(petitionsTable)
         .orderBy(desc(petitionsTable.startTimestamp));
     },
 
-    async create(
-      topic: string,
-      description: string,
-      choices: string[],
-      timestamp?: number,
-    ) {
-      await db.insert(petitionsTable).values({
-        topic,
-        description,
-        choices,
-        startTimestamp: timestamp,
-      });
+    async createPetition(petition: PetitionInsert) {
+      await db.insert(petitionsTable).values(petition);
     },
 
     async concludePetition(petitionId: number) {
