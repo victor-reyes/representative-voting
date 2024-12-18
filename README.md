@@ -2,6 +2,7 @@
 
 ## Overview
 Develop a voting application to visualize the impact of public votes in a representative democracy.
+
 ![BPP](BPP.png)
 
 ## Features
@@ -11,6 +12,9 @@ Develop a voting application to visualize the impact of public votes in a repres
 - **Results Visualization:** Display public vote counts, winning choices, and representative agreement rates.
 - **Statistics:** Show alignment between public voters and representatives through detailed metrics.
 - **Data Seeding:** Populate the database with 4 years of sample data using the service layer.
+
+## Kanban Board
+[Kanban Planning Board](https://github.com/users/victor-reyes/projects/5)
 
 ## Technology Stack
 Next.js, TypeScript, Drizzle, Postgres, Zod, ESLint, Prettier.
