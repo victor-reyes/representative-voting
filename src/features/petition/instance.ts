@@ -1,3 +1,3 @@
 import { createFeature } from "./feature";
 
-export const petition = createFeature();
+export const petitionFeature = createFeature();

@@ -1,11 +1,11 @@
 import { Explanation } from "@/components/explanation";
-import { petition } from "../instance";
+import { petitionFeature } from "../instance";
 import { PetitionItem } from "./components";
 import { PetitionDrawer } from "./components/petion-drawer";
 import { ListSectionWithAddFormDrawer } from "@/components";
 
 export async function Petitions() {
-  const petitions = await petition.service.getAllPetitionsWithStats();
+  const petitions = await petitionFeature.service.getAllPetitionsWithStats();
 
   return petitions.length > 0 ? (
     <ListSectionWithAddFormDrawer

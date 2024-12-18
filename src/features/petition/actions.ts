@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { petition } from "./instance";
+import { petitionFeature } from "./instance";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 
@@ -26,13 +26,13 @@ export async function createPetitionAction(formData: FormData) {
   }
 
   const { title, description, choices } = validatedCreatePetition.data;
-  await petition.service.createPetition(title, description, choices);
+  await petitionFeature.service.createPetition(title, description, choices);
 
   revalidatePath("/petitions");
   redirect("/petitions");
 }
 
 export async function concludePetitionAction(petitionId: number) {
-  await petition.service.concludePetition(petitionId);
+  await petitionFeature.service.concludePetition(petitionId);
   revalidatePath("/petitions");
 }

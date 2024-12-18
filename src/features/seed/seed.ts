@@ -1,8 +1,8 @@
-import { petition } from "../petition";
+import { petitionFeature } from "../petition";
 import { representativeFeature } from "../representative";
 import { faker } from "@faker-js/faker";
 
-const petitionService = petition.service;
+const petitionService = petitionFeature.service;
 const representativeService = representativeFeature.service;
 const YEAR_IN_MILLIS = 1000 * 60 * 60 * 24 * 365;
 
